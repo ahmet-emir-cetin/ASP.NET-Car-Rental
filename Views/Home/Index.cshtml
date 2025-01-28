@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Anasayfa";
+}
+@if (TempData["Success"]!=null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
+@{await Html.RenderPartialAsync("_Slide");}
+@{await Html.RenderPartialAsync("_PickUpArea");}
+@{await Html.RenderPartialAsync("_FeatureArea");}
+@* @{await Html.RenderPartialAsync("_AboutArea");} *@
+@{await Html.RenderPartialAsync("_CarRentalArea");}
+@{await Html.RenderPartialAsync("_Funtfact");}
+@* @{await Html.RenderPartialAsync("_CustomerComment");} *@

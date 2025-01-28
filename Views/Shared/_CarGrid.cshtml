@@ -1,0 +1,101 @@
+@model happylifeluxury.Models.IndexViewModel
+<!-- Car Rentals Section Start -->
+<section class="car-rentals-section-2 section-padding fix">
+    <div class="container">
+        <div class="row g-4">
+            @if (Model.Cars!.Count() > 0)
+            {
+            @foreach (var item in Model.Cars!)
+                    {
+                <!-- Ekonomik Tür Arabalar -->
+                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="car-rentals-items mt-0">
+                        <div class="car-image">
+                            <img src="~/uploads/images/cars/@item.CarImage" alt="@item.CarName @item.CarModel Model">
+                        </div>
+                        <div class="car-content">
+                            <div class="post-cat">
+                                @item.CarModel Model
+                            </div>
+                            @* <div class="star">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>2 Reviews</span>
+                            </div> *@
+                            @* <div class="car-type-holder">
+                                <h4 class="mb-0"><a href="/">@item.CarName</a></h4>
+                                <span>@item.CarType</span>
+                            </div> *@
+                            <h4><a href="#">@item.CarName</a></h4>
+                            <div class="car-type-holder">
+                                <div>
+                                    <h5 style="color: var(--theme2); font-weight: 600;">@(Convert.ToInt32(item.CarPrice) * Convert.ToInt32(Model.RentalDay) + "TL")</h5> @*<span style="color: var(--text);">/ @(Model.RentalDay+ " Günlük")</span>*@
+                                    <h6 style="color: var(--text);">@(item.CarPrice + "TL") <span>/ Günlük</span></h6>
+                                </div>
+                                <span class="car-type">@item.CarType</span>
+                            </div>
+                            <div class="icon-items gap-0 flex-wrap justify-content-between">
+                                @{int count = 1; int count2 = 1;}
+                                @foreach(var itemProp in Model.Carproperties!)
+                                {
+                                    if(itemProp.CarId == item.Id)
+                                    {
+
+                                       @(count == 1 ? Html.Raw("<ul class='mt-2'><li>" + Html.Raw(itemProp.Icon) + itemProp.Title + "</li>") : Html.Raw("<li>" + Html.Raw(itemProp.Icon) + itemProp.Title + "</li></ul>"))
+                                       if(count == 2){
+                                        count = 1;
+                                       }else{
+                                        count++;
+                                       }
+                                    }
+                                }
+
+                                @foreach(var itemReq in Model.Rentalrequirs!)
+                                {
+                                    if(itemReq.CarId == item.Id)
+                                    {
+
+                                       @(count2 == 1 ? Html.Raw("<ul class='mt-2'><li>" + Html.Raw(itemReq.Icon) + itemReq.Title + "</li>") : Html.Raw("<li>" + Html.Raw(itemReq.Icon) + itemReq.Title + "</li></ul>"))
+                                       if(count2 == 2){
+                                        count2 = 1;
+                                       }else{
+                                        count2++;
+                                       }
+                                    }
+                                }
+
+                                @* <ul class="mt-2">
+                                    <li>
+                                        <img src="~/assets/img/car/automatic.svg" alt="img" class="me-1"> Automatic
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/img/car/petrol.svg" alt="img" class="me-1"> @item.CarEngineType
+                                    </li>
+                                </ul> *@
+                            </div>
+                            <form action="/reservation/security-package" method="post">
+                            @* <form action="/reservation/driver" method="post"> *@
+                            <input type="hidden" asp-for="Car!.Id" name="carId" value="@item.Id">
+                            <input type="hidden" asp-for="RentalDay" name="RentalDay" value="@Model.RentalDay">
+                            <input type="hidden" asp-for="LocationPickup" name="LocationPickup" value="@Model.LocationPick!.Id">
+                            <input type="hidden" asp-for="LocationDropoff" name="LocationDropoff" value="@Model.LocationDrop!.Id">
+                            <input type="hidden" asp-for="DatePickup" name="DatePickup" value="@Model.DatePickup">
+                            <input type="hidden" asp-for="DateDropoff" name="DateDropoff" value="@Model.DateDropoff">
+                            <input type="hidden" asp-for="TotalPrice" name="TotalPrice" value="@(Convert.ToInt32(item.CarPrice) * Convert.ToInt32(Model.RentalDay))">
+
+                            <button href="/reservation/security-package" class="theme-btn bg-color w-100 text-center">Hemen Öde <i
+                                    class="fa-solid fa-arrow-right ps-1"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                    }
+
+            }
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,125 @@
+@model happylifeluxury.Models.IndexViewModel
+
+            <form method="post" action="/admin/reservation/update" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="d-flex">Rezervasyon No</label>
+                    <input type="text" maxlength="50" asp-for="Reservation!.ReservationNo" name="ReservationNo" class="form-control" placeholder="Rezervasyon No" disabled>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.ReservationNo"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Alış Ofisi</label>
+                    <select class="form-select form-control" asp-for="Reservation!.LocationPickup" name="LocationPickup">
+                      @foreach(var item in Model.Locations!)
+                      {
+                        if(Convert.ToInt16(Model.Reservation!.LocationPickup) == item.Id)
+                        {
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }else{
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }
+                      }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.LocationPickup"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">İade Ofisi</label>
+                    <select class="form-select form-control" asp-for="Reservation!.LocationDropoff" name="LocationDropoff">
+                      @foreach(var item in Model.Locations!)
+                      {
+                        if(Convert.ToInt16(Model.Reservation!.LocationDropoff) == item.Id)
+                        {
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }else{
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }
+                      }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.LocationDropoff"></span>
+                </div>
+                @* <div class="row form-group">
+                    <div class="form-group w-50 pt-0 pb-0">
+                    <label class="d-flex">Alış Tarihi</label>
+                    <input type="text" maxlength="100" asp-for="Reservation!.DatePickup" name="DatePickup" class="form-control" placeholder="gg/aa/yyyy">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.DatePickup"></span>
+                </div>
+                <div class="form-group w-50 pt-0 pb-0">
+                    <label class="d-flex">İade Tarihi</label>
+                    <input type="text" maxlength="100" asp-for="Reservation!.DateDropoff" name="DateDropoff" class="form-control" placeholder="gg/aa/yyyy">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.DateDropoff"></span>
+                </div> *@
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Müşteri</label>
+                    <select class="form-select form-control" asp-for="Reservation!.CustomerId" name="CustomerId">
+                      @foreach(var item in Model.Customers!)
+                      {
+                        if(Convert.ToInt16(Model.Reservation!.CustomerId) == item.Id)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName - @item.Tc</option>
+                        }else{
+                            <option value="@item.Id">@item.FirstName @item.LastName - @item.Tc</option>
+                        }
+                      }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.CustomerId"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Araç</label>
+                    <select class="form-select form-control" asp-for="Reservation!.CarId" name="CarId">
+                      @foreach(var item in Model.Cars!)
+                      {
+                        if(Convert.ToInt16(Model.Reservation!.CarId) == item.Id)
+                        {
+                            <option value="@item.Id">@item.CarName @item.CarModel - @(Convert.ToInt16(item.CarPrice) * Model.Reservation.RentalDay)₺</option>
+                        }else{
+                            <option value="@item.Id">@item.CarName @item.CarModel - @(Convert.ToInt16(item.CarPrice) * Model.Reservation.RentalDay)₺</option>
+                        }
+                      }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.CarId"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Güvenlik</label>
+                    <select class="form-select form-control" asp-for="Reservation!.InsuranceId" name="InsuranceId">
+                        @if(Convert.ToInt16(Model.Reservation!.InsuranceId) == 0)
+                        {
+                            <option selected value="0">Güvence Paketi Yok</option> 
+                        }else{
+                            <option value="0">Güvence Paketi Yok</option> 
+                        }
+                      @foreach(var item in Model.Insurances!)
+                      {
+                        
+                        if(Model.Reservation!.InsuranceId == 0)
+                        {
+                            <option value="@item.Id">@item.Title - @(item.Price * Model.Reservation.RentalDay)₺</option>
+                            
+                        }else{
+                            if(Convert.ToInt16(Model.Reservation!.InsuranceId) == item.Id)
+                            {
+                                <option value="@item.Id" selected>@item.Title - @(item.Price * Model.Reservation.RentalDay)₺</option>
+                            }else{
+                                <option value="@item.Id">@item.Title - @(item.Price * Model.Reservation.RentalDay)₺</option>
+                            }
+                        }
+                      }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.InsuranceId"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Durum</label>
+                    <select class="form-select form-control" asp-for="Reservation!.Status" name="Status">
+                        <option value="0">Ödeme Alındı</option>
+                        <option value="1">Araç Teslim Edildi</option>
+                        <option value="2">Araç İade Edildi</option>
+                        <option value="3">İptal Edildi</option>
+                        <option value="4">Bekleyen Rezervasyon</option>
+                        <option value="5">Ödeme Alınamadı</option>
+                        <option value="6">Ofisten Ödeme</option>
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.Status"></span>
+                </div>
+                <input type="hidden" asp-for="Reservation!.Id" name="Id">
+                <button type="submit" class="btn btn-dark btn-fw w-100">GÜNCELLE</button>
+            </form>

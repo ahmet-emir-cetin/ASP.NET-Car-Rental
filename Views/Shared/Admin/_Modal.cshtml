@@ -1,0 +1,534 @@
+@model happylifeluxury.Models.IndexViewModel
+<!-- ReservationUpdate Modal -->
+<div class="modal fade" id="modalReservationEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Reservation Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="generalMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ReservationModal Modal -->
+<div class="modal fade" id="ReservationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Reservation Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/reservation/add">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Alış Ofisi</label>
+                        <select class="form-select form-control" asp-for="Reservation!.LocationPickup" name="LocationPickup">
+                            <option selected disabled>Alış Ofisi Seçiniz</option>
+                        @foreach(var item in Model.Locations!)
+                        {
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.LocationPickup"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">İade Ofisi</label>
+                        <select class="form-select form-control" asp-for="Reservation!.LocationDropoff" name="LocationDropoff">
+                            <option selected disabled>İade Ofisi Seçiniz</option>
+                        @foreach(var item in Model.Locations!)
+                        {
+                            <option value="@item.Id">@item.LocatioName</option>
+                        }
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.LocationDropoff"></span>
+                    </div>
+                    <div class="row form-group">
+                        <div class="pickup-items col-md-6">
+                            <label class="field-label">Alış Tarihi</label>
+                            <div id="datepickerRes" class="input-group date" data-date-format="d MM yyyy">
+                                <input class="form-control" type="text" placeholder="Tarih Seçiniz" asp-for="Reservation!.DatePickup" name="DatePickup" readonly>
+                                <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                                <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.DatePickup"></span>
+                            </div>
+                        </div>
+                        <div class="pickup-items col-md-6">
+                            <label class="field-label">İade Tarihi</label>
+                            <div id="datepickerResOff" class="input-group date" data-date-format="d MM yyyy">
+                                <input class="form-control" type="text" placeholder="Tarih Seçiniz" asp-for="Reservation!.DateDropoff" name="DateDropoff" readonly>
+                                <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                                <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.DateDropoff"></span>
+                            </div>
+                        </div>
+                    </div>
+                    @* <div class="form-group">
+                        <label class="d-flex">Kiralama Günü</label>
+                        <input type="text" maxlength="50" asp-for="Reservation!.RentalDay" name="RentalDay" class="form-control" placeholder="Kiralama Günü">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.RentalDay"></span>
+                    </div> *@
+                    <div class="form-group">
+                        <label class="d-flex">Müşteri</label>
+                        <select class="form-select form-control" asp-for="Reservation!.CustomerId" name="CustomerId">
+                            <option selected disabled>Müşteri Seçiniz</option>
+                        @foreach(var item in Model.Customers!)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName - @item.Tc</option>
+                        }
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.CustomerId"></span>
+                    </div>
+                    <div class="row form-group">
+                        <div class="form-group col-md-6">
+                            <label class="d-flex">Araç</label>
+                            <select class="form-select form-control" asp-for="Reservation!.CarId" name="CarId">
+                                <option selected disabled>Araç Seçiniz</option>
+                            @foreach(var item in Model.Cars!)
+                            {
+                                <option value="@item.Id">@item.CarName @item.CarModel - @(Convert.ToInt16(item.CarPrice) * 1)₺</option>
+                            }
+                            </select>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.CarId"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="d-flex">Güvenlik</label>
+                            <select class="form-select form-control" asp-for="Reservation!.InsuranceId" name="InsuranceId">
+                                <option selected disabled>Güvenlik Paketi Seçiniz</option>
+                                <option value="0">Güvenlik Paketi Yok</option>
+                                @foreach(var item in Model.Insurances!)
+                                {
+                                    <option value="@item.Id" selected>@item.Title - @(item.Price * 1)₺</option>                                
+                                }
+                            </select>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.InsuranceId"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Durum</label>
+                        <select class="form-select form-control" asp-for="Reservation!.Status" name="Status">
+                            <option value="0">Ödeme Alındı</option>
+                            <option value="1">Araç Teslim Edildi</option>
+                            <option value="2">Araç İade Edildi</option>
+                            <option value="3">İptal Edildi</option>
+                            <option value="4">Bekleyen Rezervasyon</option>
+                            <option value="5">Ödeme Alınamadı</option>
+                            <option value="6">Ofisten Ödeme</option>
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.Status"></span>
+                    </div>
+                    @* <div class="form-group">
+                        <label class="d-flex">Toplam Tutar</label>
+                        <input type="text" maxlength="50" asp-for="Reservation!.TotalPrice" name="TotalPrice" class="form-control" placeholder="Toplam Tutar" value="1" readonly>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Reservation!.TotalPrice"></span>
+                    </div> *@
+                    <input type="hidden" asp-for="Reservation!.RentalDay" name="RentalDay" value="">
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CarUpdate Modal -->
+<div class="modal fade" id="modalCarEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Car Edit</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="editCarMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CarModal Modal -->
+<div class="modal fade" id="CarModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Car Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/car/add" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Araç Adı</label>
+                        <input type="text" maxlength="50" asp-for="Car!.CarName" name="CarName" class="form-control" placeholder="Araç Adı">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Araç Modeli</label>
+                        <input type="text" maxlength="50" asp-for="Car!.CarModel" name="CarModel" class="form-control" placeholder="Araç Modeli">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarModel"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Araç Fiyatı</label>
+                        <input type="text" maxlength="50" asp-for="Car!.CarPrice" name="CarPrice" class="form-control" placeholder="Araç Fiyatı">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarPrice"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Araç Sınıfı</label>
+                        <select class="form-select form-control" asp-for="Car!.CarType" name="CarType">
+                            <option value="EKONOMİK">Ekonomik</option>
+                            <option value="KONFOR">Konfor</option>
+                            <option value="VIP">VIP</option>
+                            <option value="PRESTİJ">Prestij</option>
+                            <option value="LÜKS">Lüks</option>
+                            <option value="VAN">Van</option>
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarType"></span>
+                    </div>
+                    <div class="form-group d-flex align-items-end">
+                        <input class="form-control" asp-for="Car!.CarImage" type="file" name="file" accept="image/png, image/gif, image/jpeg">
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SlideModal Modal -->
+<div class="modal fade" id="SlideModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Slide Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/slide/add" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Başlık</label>
+                        <input type="text" maxlength="50" asp-for="Slide!.Title" name="Title" class="form-control" placeholder="Başlık">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Slide!.Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Alt Başlık</label>
+                        <input type="text" maxlength="50" asp-for="Slide!.Subtitle" name="Subtitle" class="form-control" placeholder="Alt Başlık">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Slide!.Subtitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Sıra</label>
+                        <input type="text" maxlength="50" asp-for="Slide!.Orders" name="Orders" class="form-control" placeholder="Sıra">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Slide!.Orders"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Görünürlük</label>
+                        <select class="form-select form-control" asp-for="Slide!.IsView" name="IsView">
+                            <option value="True">Görünür</option>
+                            <option value="False">Görünmez</option>
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Slide!.IsView"></span>
+                    </div>
+                    <div class="form-group d-flex align-items-end">
+                        <input class="form-control" asp-for="Slide!.Image" type="file" name="file" accept="image/png, image/gif, image/jpeg">
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LocationModal Modal -->
+<div class="modal fade" id="LocationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Location Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/location/add" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Lokasyon Adı</label>
+                        <input type="text" maxlength="50" asp-for="Location!.LocatioName" name="LocatioName" class="form-control" placeholder="Lokasyon Adı">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Location!.LocatioName"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CampaignUpdate Modal -->
+<div class="modal fade" id="modalCampaignEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Campaign Edit</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="editCampaignMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- CampaignModal Modal -->
+<div class="modal fade" id="CampaignModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Campaign Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/campaign/add" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Başlık</label>
+                        <input type="text" maxlength="50" asp-for="Campaign!.Title" name="Title" class="form-control" placeholder="Başlık">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Alt Başlık</label>
+                        <input type="text" maxlength="50" asp-for="Campaign!.Subtitle" name="Subtitle" class="form-control" placeholder="Alt Başlık">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.Subtitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Açıklama</label>
+                        <textarea maxlength="500" rows="5" type="Description" class="form-control" asp-for="Campaign!.Description" name="Description" id="Description" placeholder="Açıklama">
+
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Görünürlük</label>
+                        <select class="form-select form-control" asp-for="Campaign!.IsView" name="IsView">
+                            <option value="True">Görünür</option>
+                            <option value="False">Görünmez</option>
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.IsView"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">SEO Başlık</label>
+                        <input type="text" maxlength="50" asp-for="Campaign!.SeoTitle" name="SeoTitle" class="form-control" placeholder="SEO Başlık">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.SeoTitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">SEO URL</label>
+                        <input type="text" maxlength="250" asp-for="Campaign!.SeoUrl" name="SeoUrl" class="form-control" placeholder="SEO URL">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.SeoUrl"></span>
+                    </div>
+                    <div class="form-group d-flex align-items-end">
+                        <input class="form-control" asp-for="Campaign!.Image" type="file" name="file" accept="image/png, image/gif, image/jpeg">
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- CustomerUpdate Modal -->
+<div class="modal fade" id="modalCustomerEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Customer Edit</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="editCustomerMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- CustomerModal Modal -->
+<div class="modal fade" id="CustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">Customer Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/customer/add">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Ad</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.FirstName" name="FirstName" class="form-control" placeholder="Ad">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.FirstName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Soyad</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.LastName" name="LastName" class="form-control" placeholder="Soyad">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.LastName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Ehliyet No</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.DriverNo" name="DriverNo" class="form-control" placeholder="Ehliyer No">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.DriverNo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">TC No</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.Tc" name="Tc" class="form-control" placeholder="TC Kimlik No">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Tc"></span>
+                    </div>
+                    <div class="row form-group">
+                        <div class="pickup-items col-md-6">
+                            <label class="field-label">Ehliyet Verilme Tarihi</label>
+                            <div id="datepickerDriverDate" class="input-group date" data-date-format="dd-mm-yyyy">
+                                <input class="form-control" type="text" placeholder="Tarih Seçiniz" asp-for="Customer!.DriverDate" name="DriverDate" readonly>
+                                <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                                <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.DriverDate"></span>
+                            </div>
+                        </div>
+                        <div class="pickup-items col-md-6">
+                            <label class="field-label">Doğum Tarihi</label>
+                            <div id="datepickerCustomerBDay" class="input-group date" data-date-format="d-mm-yyyy">
+                                <input class="form-control" type="text" placeholder="Tarih Seçiniz" asp-for="Customer!.Bday" name="Bday" readonly>
+                                <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                                <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Bday"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">İl</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.City" name="City" class="form-control" placeholder="İl">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.City"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">İlçe</label>
+                        <input type="text" maxlength="50" asp-for="Customer!.County" name="County" class="form-control" placeholder="İlçe">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.County"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Adres</label>
+                        <input type="text" maxlength="250" asp-for="Customer!.Adress" name="Adress" class="form-control" placeholder="Adres">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Adress"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Telefon</label>
+                        <input type="text" maxlength="250" asp-for="Customer!.Phone" name="Phone" class="form-control" placeholder="Telefon">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">E-Posta</label>
+                        <input type="text" maxlength="250" asp-for="Customer!.Email" name="Email" class="form-control" placeholder="E-posta">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Email"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- CarPropModel Modal -->
+<div class="modal fade" id="CarPropModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel">CarProperties Add</h5>
+                <button class="close" type="button" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/admin/carprop/add">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="d-flex">Özellik Adı</label>
+                        <input type="text" maxlength="50" asp-for="Carproperty!.Title" name="Title" class="form-control" placeholder="Özellik Adı">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Carproperty!.Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Özellik İkonu</label>
+                        <input type="text" maxlength="250" asp-for="Carproperty!.Icon" name="Icon" class="form-control" placeholder="Özellik İkonu">
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Carproperty!.Icon"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex">Araç</label>
+                        <select class="form-select form-control" asp-for="Carproperty!.CarId" name="CarId">
+                            <option selected disabled>Araç Seçiniz</option>
+                        @foreach(var item in Model.Cars!)
+                        {
+                            <option value="@item.Id">@item.CarName @item.CarModel</option>
+                        }
+                        </select>
+                        <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Carproperty!.CarId"></span>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-dark btn-fw w-100">EKLE</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>

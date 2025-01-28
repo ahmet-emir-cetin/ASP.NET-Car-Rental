@@ -1,0 +1,317 @@
+@model happylifeluxury.Models.IndexViewModel;
+<form action="/reservation/add" method="post" class="form" id="lastForm">
+    @* <h1 class="text-center">Registration Form</h1> *@
+    <!-- Progress bar -->
+    <div class="progressbar p-5">
+        <div class="progress" id="progress"></div>
+
+        <div class="progress-step progress-step-active" data-title="Sürücü Bilgileri"></div>
+        <div class="progress-step" data-title="Ehliyet Bilgileri"></div>
+        <div class="progress-step" data-title="Kart Bilgileri"></div>
+        @* <div class="progress-step" data-title="Password"></div> *@
+    </div>
+
+    <!-- Steps -->
+    <div class="car-details-wrapper form-1 p-0 p-md-5 d-flex justify-content-center">
+        <div class="car-booking-items p-5 w-75 w-md-100">
+            <div class="form-step form-step-active contact-form-items">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Adınız*</label>
+                            <input type="text" name="FirstName" asp-for="FirstName">
+                            <span class="text-danger" style="font-size: 0.875rem;"
+                                asp-validation-for="FirstName"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Soyadınız*</label>
+                            <input type="text" name="LastName" asp-for="LastName">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="LastName"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text" id="tcLabel" style="display: block;">T.C. No*</label>
+                            <input type="text" name="Tc" id="tc" asp-for="Tc" maxlength="11" style="display: inline-block;">
+                            <label class="label-text" id="pasLabel" style="display: none;">Pasaport No*</label>
+                            <input type="text" name="Tc" id="passportNo" asp-for="Tc" maxlength="11" style="display: none;">
+                            <span class="text-danger" style="font-size: 0.875rem;" id="tcValidate"
+                                asp-validation-for="Tc"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Ehliyet No*</label>
+                            <input type="text" name="DriverNo" asp-for="DriverNo">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="DriverNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Doğum Tarihi*</label>
+                            <input type="text" name="Bday" id="birthdayDate" asp-for="Bday" maxlength="10"
+                                placeholder="gg/aa/yyyy" readonly>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Bday"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-clt">
+                            <label class="label-text">İl*</label>
+                            <input type="text" name="City" asp-for="City" id="city">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="City"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-clt">
+                            <label class="label-text">İlçe*</label>
+                            <input type="text" name="County" asp-for="County" id="county" >
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="County"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-save-items d-flex justify-content-between align-items-center">
+                            <div class="input-save d-flex align-items-center">
+                                <input type="checkbox" class="form-check-input" name="countryOut" id="countryOut"
+                                    style="background-color: var(--theme2);">
+                                <label for="countryOut">Yurt dışında yaşıyorum</label>
+                            </div>
+                            <div class="input-save d-flex align-items-center">
+                                <input type="checkbox" class="form-check-input" name="tcNot" id="tcNot"
+                                    style="background-color: var(--theme2);">
+                                <label for="tcNot">TC vatandaşı değilim</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-clt">
+                            <label class="label-text">Adres*</label>
+                            <input type="text" name="Adress" asp-for="Adress">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Adress"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Telefon*</label>
+                            <input type="text" name="Phone" asp-for="Phone">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Phone"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">E-Posta*</label>
+                            <input type="text" name="Email" asp-for="Email">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <span>*Aracın teslim alınabilmesi için üzerinde TC kimlik numarası yazan bir belge ibraz etmek
+                        zorunludur.</span>
+                    <div class="col-lg-12">
+                        <button class="theme-btn btn-next" id="nextDriverCheck" type="submit">
+                            Sonraki Adım
+                        </button>
+                    </div>
+                </div>
+                @* <div class="">
+                    <a href="#" class="form-btn btn-next width-50 ml-auto">Next</a>
+                </div> *@
+            </div>
+        </div>
+    </div>
+    @* Step 2 *@
+    <div class="car-details-wrapper form-2 p-0 p-md-5 d-none justify-content-center">
+        <div class="car-booking-items p-5 w-75 w-md-100">
+            <div class="form-step form-step contact-form-items">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text" style="display: block;">T.C. No*</label>
+                            <input type="text" name="Tc" id="tcCheck" asp-for="Tc" maxlength="11" style="display: inline-block;" disabled>
+                            <span class="text-danger" style="font-size: 0.875rem;"
+                                asp-validation-for="Tc"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Ehliyet No*</label>
+                            <input type="text" name="DriverNo" id="driverCheck" asp-for="DriverNo" disabled>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="DriverNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Ehliyet Verilme Tarihi*</label>
+                            <input type="text" name="DriverDate" asp-for="DriverDate" id="driverDate" readonly>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="DriverDate"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Doğum Tarihi*</label>
+                            <input type="text" name="Bday" id="birthdayDateCheck" asp-for="Bday" maxlength="10"
+                                placeholder="gg/aa/yyyy" disabled>
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Bday"></span>
+                        </div>
+                    </div>
+                    <span>*Ehliyet verilme tarihi KKB sorgunuzu etkileyeceği için lütfen ehliyetinizdeki 10 no'lu alanı girdiğinizden emin olunuz.
+**“Araç Kiralama Değerlendirme Analizi, KKB Kredi Kayıt Bürosu A.Ş. üzerinden T.C. kimlik numaranız ve T.C bankalarında kayıtlı olan GSM numaranız ile yapılabilmektedir. Sorgulamada bu bilgiler alındıktan sonra T.C bankalarında kayıtlı olan GSM numaranıza gönderilen mesajı onaylamanız gerekmektedir. İşbu sorgunun bilginiz ve açık rızanız dâhilinde yapıldığını ve www.kkb.com.tr/gizlilik-politikasi adresindeki bilgilendirmeyi okuyup anladığınızı kabul ve beyan etmektesiniz. KKB tarafından işbu sorgulama neticesinde işlenen üye bilgilerinin gizliliğini sağlanması hususunda Otokoç Otomotiv Tic. ve San.A.Ş.’nin herhangi bir sorumluluğu bulunmamaktadır.</span>
+                    <div class="col-lg-12">
+                        <a href="#" class="theme-btn btn-prev">Önceki Adım</a>
+                        <button class="theme-btn btn-next" type="submit">
+                            Sonraki Adım
+                        </button>
+                    </div>
+                </div>
+                @* <div class="">
+                    <a href="#" class="form-btn btn-next width-50 ml-auto">Next</a>
+                </div> *@
+            </div>
+        </div>
+    </div>
+    @* Step 3 *@
+    <div class="car-details-wrapper form-3 p-0 p-md-5 d-none justify-content-center">
+        <div class="car-booking-items p-5 w-75 w-md-100">
+            <div class="form-step form-step contact-form-items">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text" style="display: block;">Kart Üzerindeki Ad Soyad*</label>
+                            <input type="text" name="placeName" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Kart Numarası*</label>
+                            <input type="text" name="cardNo" id="cardNo" oninput="formatCardNumber(this)" maxlength="19" minlength="19" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Son Kullanma Tarihi*</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Güvenlik Kodu*</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-clt">
+                            <div class="category-oneadjust">
+                                <select name="Month" class="category" style="display: none;" required>
+                                    <option value="1">
+                                        01
+                                    </option>
+                                    <option value="2">
+                                        02
+                                    </option>
+                                    <option value="3">
+                                        03
+                                    </option>
+                                    <option value="4">
+                                        04
+                                    </option>
+                                    <option value="5">
+                                        05
+                                    </option>
+                                    <option value="6">
+                                        06
+                                    </option>
+                                    <option value="7">
+                                        07
+                                    </option>
+                                    <option value="8">
+                                        08
+                                    </option>
+                                    <option value="9">
+                                        09
+                                    </option>
+                                    <option value="10">
+                                        10
+                                    </option>
+                                    <option value="11">
+                                        11
+                                    </option>
+                                    <option value="12">
+                                        12
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-clt">
+                            <div class="category-oneadjust">
+                                <select name="Year" class="category" style="display: none;" required>
+                                    <option value="25">
+                                        25
+                                    </option>
+                                    <option value="26">
+                                        26
+                                    </option>
+                                    <option value="27">
+                                        27
+                                    </option>
+                                    <option value="28">
+                                        28
+                                    </option>
+                                    <option value="29">
+                                        29
+                                    </option>
+                                    <option value="30">
+                                        30
+                                    </option>
+                                    <option value="31">
+                                        31
+                                    </option>
+                                    <option value="32">
+                                        32
+                                    </option>
+                                    <option value="33">
+                                        33
+                                    </option>
+                                    <option value="34">
+                                        34
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            @* <label class="label-text">Güvenlik Kodu*</label> *@
+                            <input type="number" name="cvv" maxlength="4" required>
+                        </div>
+                    </div>
+                    <span>*Banka kartlarına taksit yapılmamaktadır.</span>
+                    <span>Toplam Ödeme: @string.Format("{0:#,0.####}TL", Model.TotalPrice)</span>
+                    <div class="col-lg-12">
+                        @* <button class="theme-btn btn-next" type="submit">
+                            Rezervasyonu Tamamla
+                        </button> *@
+                        <a href="#" class="theme-btn btn-prev">Önceki Adım</a>
+                        <button class="theme-btn" type="submit">
+                            Rezervasyonu Tamamla
+                        </button>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Car!.Id" name="carId" value="@Model.CarId">
+                            <input type="hidden" asp-for="RentalDay" name="RentalDay" value="@Model.RentalDay">
+                            <input type="hidden" asp-for="LocationPickup" name="LocationPickup" value="@Model.LocationPick!.Id">
+                            <input type="hidden" asp-for="LocationDropoff" name="LocationDropoff" value="@Model.LocationDrop!.Id">
+                            <input type="hidden" asp-for="DatePickup" name="DatePickup" value="@Model.DatePickup">
+                            <input type="hidden" asp-for="DateDropoff" name="DateDropoff" value="@Model.DateDropoff">
+                            <input type="hidden" asp-for="TotalPrice" name="TotalPrice" value="@Model.TotalPrice">
+                            <input type="hidden" asp-for="InsuranceId" name="InsuranceId" value="@Model.InsuranceId">
+                            <input type="hidden" asp-for="InsurancePrice" name="InsurancePrice" value="@Model.InsurancePrice">
+                            <input type="hidden" asp-for="InsuranceTitle" name="InsuranceTitle" value="@Model.InsuranceTitle">
+                            @* <input type="hidden" asp-for="InsurancePrice" name="InsurancePrice" value="@Model.InsurancePrice">
+                            <input type="hidden" asp-for="InsuranceId" name="InsuranceId" value="@Model.InsuranceId"> *@
+
+                        @* <input type="submit" class="border-0 theme-btn" value="Submit" class="form-btn" /> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

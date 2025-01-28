@@ -1,0 +1,71 @@
+@{
+    @model happylifeluxury.Models.IndexViewModel
+}
+<!-- Car Rentals Section Start -->
+        <section class="car-rentals-section section-padding fix">
+            <div class="container">
+                <div class="section-title text-center">
+                    <img src="~/assets/img/sub-icon.png" alt="icon-img" class="wow fadeInUp">
+                    @* <span class="wow fadeInUp" data-wow-delay=".2s">Checkout our new cars</span> *@
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">
+                        Kiralık Araçlar
+                    </h2>
+                </div>
+            </div>
+            <div class="car-rentals-wrapper">
+                <div class="array-button">
+                    <button class="array-prev"><i class="far fa-chevron-left"></i></button>
+                    <button class="array-next"><i class="far fa-chevron-right"></i></button>
+                </div>
+                <div class="swiper car-rentals-slider">
+                    <div class="swiper-wrapper">
+                        @* START CARS *@
+                        @if(Model.Cars!.Count() > 0){
+                        @foreach(var item in Model.Cars!)
+                        {
+                        <div class="swiper-slide">
+                            <div class="car-rentals-items">
+                                <div class="car-image">
+                                    <img src="~/uploads/images/cars/@item.CarImage" alt="@item.CarName @item.CarModel">
+                                </div>
+                                <div class="car-content">
+                                    <div class="post-cat">
+                                        @item.CarModel Model
+                                    </div>
+                                    <div class="star">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>2 Reviews</span>
+                                    </div>
+                                    <h4><a href="/">@item.CarName</a></h4>
+                                    <h6>₺@item.CarPrice <span>/ Günlük</span></h6>
+                                    <div class="icon-items">
+                                        @{int count = 1;}
+                                        @foreach(var itemProp in Model.Carproperties!)
+                                        {
+                                            if(itemProp.CarId == item.Id)
+                                            {
+
+                                            @(count == 1 ? Html.Raw("<ul class='mt-2'><li>" + Html.Raw(itemProp.Icon) + itemProp.Title + "</li>") : Html.Raw("<li>" + Html.Raw(itemProp.Icon) + itemProp.Title + "</li></ul>"))
+                                            if(count == 2){
+                                                count = 1;
+                                            }else{
+                                                count++;
+                                            }
+                                            }
+                                        }
+                                    </div>
+                                    <a href="/" class="theme-btn bg-color w-100 text-center">book now <i class="fa-solid fa-arrow-right ps-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        }
+                        @* END CARS*@
+                    </div>
+                </div>
+            </div>
+        </section>

@@ -1,0 +1,108 @@
+@model happylifeluxury.Models.IndexViewModel
+<!-- Pick Up Location Section Start -->
+<div class="pickup-loaction-area bg-cover" style="background-image: url('/assets/img/brand-bg.png');">
+    <div class="container">
+        <form id="reservationForm" method="post" action="/reservation/pick-car">
+        @Html.AntiForgeryToken()
+        <div class="pickup-wrapper wow fadeInUp" data-wow-delay=".4s">
+            <div class="pickup-items">
+                <label class="field-label">Teslim Alma Ofisi</label>
+                <div class="category-oneadjust">
+                    <select name="LocationPickup" asp-for="LocationPickup" class="category" required>
+                        <option value="" disabled selected hidden>
+                            Ofis Seçiniz
+                        </option>
+                        @foreach(var item in Model.Locations!){
+                        <option value="@item.Id">
+                            @item.LocatioName
+                        </option> 
+                        }
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="LocationPickup"></span>
+                </div>
+            </div>
+            <div class="pickup-items">
+                <label class="field-label">İade Etme Ofisi</label>
+                <div class="category-oneadjust">
+                    <select name="LocationDropoff" asp-for="LocationDropoff" class="category" required>
+                        <option value="" disabled selected hidden>
+                            Ofis Seçiniz
+                        </option>
+                        @foreach(var item in Model.Locations!){
+                        <option value="@item.Id">
+                            @item.LocatioName
+                        </option> 
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="pickup-items">
+                <label class="field-label">Alış Tarihi</label>
+                <div id="datepicker" class="input-group m-0 date" data-date-format="d MM yyyy">
+                    <input class="form-control" type="text" placeholder="Tarih Seçiniz" readonly required>
+                    <input class="form-control" type="text" name="DatePickup" id="DatePickup" readonly required hidden>
+                    <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="DatePickup"></span>
+
+                </div>
+            </div>
+            <div class="pickup-items">
+                <label class="field-label">İade Tarihi</label>
+                <div id="datepicker2" class="input-group m-0 date" data-date-format="d MM yyyy">
+                    <input class="form-control" type="text" placeholder="Tarih Seçiniz" readonly required>
+                    <input class="form-control" type="text" name="DateDropoff" id="DateDropoff" readonly required hidden>
+                    <span class="input-group-addon"> <i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+            </div>
+            
+            <div class="pickup-items">
+                <label class="field-label style-2">button</label>
+                <button class="pickup-btn" id="car-pickup-btn" type="submit">
+                    Kirala
+                </button>
+            </div>
+            <input class="form-control" name="rentalDay" id="rentalDays" type="text"readonly hidden>
+        </div>
+        </form>
+        <div class="brand-wrapper pt-80 pb-80">
+            <div class="array-button">
+                <button class="array-prev-2"><i class="far fa-chevron-left"></i></button>
+                <button class="array-next-2"><i class="far fa-chevron-right"></i></button>
+            </div>
+            <div class="swiper brand-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/01.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/02.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/03.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/04.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/05.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="brand-image">
+                            <img src="~/assets/img/brand/06.png" alt="img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

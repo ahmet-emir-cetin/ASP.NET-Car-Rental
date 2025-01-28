@@ -1,0 +1,139 @@
+@{
+  var actionName = ViewContext.RouteData.Values["Action"]!.ToString();
+}
+<!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="/admin" class="logo">
+              <img
+                src="~/admin/assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
+                <a
+                  data-bs-toggle="collapse"
+                  href="#dashboard"
+                  class="collapsed"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="dashboard">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="/admin">
+                        <span class="sub-item">Dashboard 1</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-section">
+                <span class="sidebar-mini-icon">
+                  <i class="fa fa-ellipsis-h"></i>
+                </span>
+                <h4 class="text-section">Components</h4>
+              </li>
+              <li class='nav-item @(actionName=="AdminSettings" || actionName=="ContactSettings" || actionName=="SocialSettings" ?"active":" ")'>
+                <a data-bs-toggle="collapse" href="#base">
+                  <i class="fas fa-layer-group"></i>
+                  <p>General Settings</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base">
+                  <ul class="nav nav-collapse">
+                    <li class='@(actionName=="AdminSettings"?"active":" ")'>
+                      <a href="/admin/settings/site-settings">
+                        <span class="sub-item">Admin Settings</span>
+                      </a>
+                    </li>
+                    <li class='@(actionName=="ContactSettings"?"active":" ")'>
+                      <a href="/admin/settings/contact-settings">
+                        <span class="sub-item">Contact Settings</span>
+                      </a>
+                    </li>
+                    <li class='@(actionName=="SocialSettings"?"active":" ")'>
+                      <a href="/admin/settings/social-settings">
+                        <span class="sub-item">Social Settings</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class='nav-item @(actionName=="Reservation"?"active":" ")'>
+                <a href="/admin/reservation">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Reservations</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Car"?"active":" ")'>
+                <a href="/admin/car">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Cars</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Slide"?"active":" ")'>
+                <a href="/admin/slide">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Slide</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Location"?"active":" ")'>
+                <a href="/admin/location">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Locations</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Campaigns"?"active":" ")'>
+                <a href="/admin/campaign">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Campaigns</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Customer"?"active":" ")'>
+                <a href="/admin/customer">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Customer</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="CarProp"?"active":" ")'>
+                <a href="/admin/carprop">
+                  <i class="fas fa-pen-square"></i>
+                  <span class="sub-item">Car Properties</span>
+                </a>
+              </li>
+              <li class='nav-item @(actionName=="Inbox"?"active":" ")'>
+                <a href="/admin/inbox">
+                  <i class="fas fa-inbox"></i>
+                  <span class="sub-item">Inbox</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->

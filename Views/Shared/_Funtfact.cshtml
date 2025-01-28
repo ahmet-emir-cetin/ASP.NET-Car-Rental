@@ -1,0 +1,55 @@
+@model happylifeluxury.Models.IndexViewModel
+ <!-- Funfact Section Start -->
+        <section class="funfact-section section-padding bg-cover" style="background-image: url('assets/img/funfact-bg.jpg');">
+            <div class="container">
+                <div class="funfact-wrapper">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-6">
+                            <div class="section-title mb-0">
+                                <img src="~/assets/img/sub-icon-2.png" alt="icon-img" class="wow fadeInUp">
+                                <span class="wow fadeInUp" data-wow-delay=".2s">@Model.Site!.Title</span>
+                                <h2 class="text-white wow fadeInUp" data-wow-delay=".4s">
+                                    En İyi Araba Kiralama <br>
+                                    Hizmetleriyle Zamandan ve Paradan Tasarruf Edin
+                                   
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="funfact-counter-area">
+                                <div class="funfact-items wow fadeInUp" data-wow-delay=".3s">
+                                    <div class="icon">
+                                        <img src="~/assets/img/icon/car.png" alt="img">
+                                    </div>
+                                    <h2><span class="count">@Model.Reservations!.Count()</span></h2>
+                                    <p>
+                                        Araç <br>
+                                        Kiralamaları
+                                    </p>
+                                </div>
+                                <div class="funfact-items wow fadeInUp" data-wow-delay=".5s">
+                                    <div class="icon">
+                                        <img src="~/assets/img/icon/center.png" alt="img">
+                                    </div>
+                                    <h2><span class="count">@Model.Locations!.Count()</span></h2>
+                                    <p>
+                                        Merkez <br>
+                                        Çözümleri
+                                    </p>
+                                </div>
+                                <div class="funfact-items wow fadeInUp" data-wow-delay=".7s">
+                                    <div class="icon">
+                                        <img src="~/assets/img/icon/like.png" alt="img">
+                                    </div>
+                                    <h2><span class="count">@Model.Customers!.Count()</span></h2>
+                                    <p>
+                                        Mutlu <br>
+                                        Müşteriler
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

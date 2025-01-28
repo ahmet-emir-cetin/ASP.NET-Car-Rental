@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+    @{await Html.RenderPartialAsync("_Head");}
+<body>
+    @{await Html.RenderPartialAsync("_Preload");}
+    @{await Html.RenderPartialAsync("_TopPage");}
+    @{await Html.RenderPartialAsync("_FixArea");}
+    @{await Html.RenderPartialAsync("_Header");}
+    @{
+        if(ViewContext.RouteData.Values["Action"]!.ToString()!="Index")
+        {
+            await Html.RenderPartialAsync("_Banner");
+        }
+    }
+
+    @RenderBody()
+
+    @{await Html.RenderPartialAsync("_Footer");}
+    @{await Html.RenderPartialAsync("_Scripts");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</body>
+</html>

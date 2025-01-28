@@ -1,0 +1,85 @@
+@model happylifeluxury.Models.IndexViewModel
+@{
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+    ViewData["Title"] = "Car Rental";
+    string carName = "";
+}
+ @{await Html.RenderPartialAsync("Admin/_Modal");}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
+@if (TempData["Danger"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Danger"]</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h4 class="card-title">Araç Özellikleri</h4>
+                    <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
+                        data-bs-target="#CarPropModel">
+                        <i class="fa fa-plus"></i>
+                        Ekle
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="add-rowCarProp" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Özellik Adı</th>
+                                <th style="width: 15%;">Özellik İkonu</th>
+                                <th style="width: 15%;">Araç</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Özellik Adı</th>
+                                <th>Özellik İkonu</th>
+                                <th>Araç</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach(var item in Model.Carproperties!)
+                            {
+                            @foreach(var itemCar in Model.Cars!){
+                                if(item.CarId == itemCar.Id)
+                                {
+                                    carName = itemCar.CarName + " " + itemCar.CarModel;
+                                }
+                            }
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@Html.Raw(item.Icon)</td>
+                                <td>@carName</td>
+
+                                <td>
+                                    <div class="form-button-action">
+                                        <form action="/admin/carprop/delete" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button value="@item.Id" name="Id" type="submit" data-bs-toggle="tooltip" title=""
+                                            class="btn btn-link btn-danger" data-original-title="Remove">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/admin/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="~/admin/assets/js/site.js"></script>

@@ -1,0 +1,76 @@
+@model happylifeluxury.Models.IndexViewModel
+@{
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+    ViewData["Title"] = "Car Rental";
+}
+ @{await Html.RenderPartialAsync("Admin/_Modal");}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
+@if (TempData["Danger"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Danger"]</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h4 class="card-title"><i class="fas fa-inbox"></i> Gelen Kutusu</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="add-rowCarProp" class="display table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 22%;">Kimden</th>
+                                <th style="width: 22%;">Başlık</th>
+                                <th style="width: 22%;">Telefon</th>
+                                <th style="width: 22%">Mesaj</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Kimden</th>
+                                <th>Başlık</th>
+                                <th>Telefon</th>
+                                <th>Mesaj</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach(var item in Model.Inboxes!)
+                            {
+                            <tr>
+                                <td>@item.Email</td>
+                                <td>@item.Title</td>
+                                <td>@item.Phone</td>
+                                <td>@(item.Message.Substring(0, Math.Min(item.Message.Length, 100)))</td>
+                                <td>
+                                    <div class="form-button-action">
+                                        <form action="/admin/inbox/read/@item.Id" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button value="@item.Id" name="Id" type="submit" data-bs-toggle="tooltip" title=""
+                                            class="btn btn-link btn-black fs-5" data-original-title="Read">
+                                            <i class="fas fa-envelope"></i>
+                                        </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/admin/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="~/admin/assets/js/site.js"></script>

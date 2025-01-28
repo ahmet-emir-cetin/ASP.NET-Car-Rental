@@ -1,0 +1,49 @@
+﻿@model happylifeluxury.Models.IndexViewModel;
+@{
+    ViewData["Title"] = "Rezervasyon İptal";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center fw-bold" role="alert">@TempData["success"]</div>
+}
+@if (TempData["Danger"] != null)
+{
+    <div class="alert alert-danger text-center fw-bold" role="alert">@TempData["danger"]</div>
+}
+<form action="/reservation/cancel" method="post">
+    <div class="car-details-wrapper form-1 p-0 p-md-5 d-flex justify-content-center">
+
+        <div class="car-booking-items p-5 w-50 w-md-100 contact-form-items">
+            <div class="contact-form-items">
+                <div class="booking-header">
+                    <h3>Rezervasyon İptal</h3>
+                </div>
+                <div class="row g-4">
+
+                    <span>Rezervasyonunuzu iptal etmek için rezervasyon numaranızı ve soyadınızı giriniz.</span>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Rezervasyon Numaranız*</label>
+                            <input type="text" name="ReservationNo" asp-for="ReservationNo">
+                            <span class="text-danger" style="font-size: 0.875rem;"
+                                asp-validation-for="ReservationNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-clt">
+                            <label class="label-text">Soyadınız*</label>
+                            <input type="text" name="LastName" asp-for="LastName">
+                            <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="LastName"></span>
+                        </div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <div class="col-lg-12">
+                        <button class="theme-btn btn-next" id="nextDriverCheck" type="submit">
+                            İptal Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

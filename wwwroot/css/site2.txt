@@ -1,0 +1,247 @@
+.header-1 .header-main .main-menu ul li a.active {
+    color: #0c142e;
+}
+
+
+/* .pickup-wrapper .pickup-items .category-oneadjust .nice-select .list {
+    max-height: 30vh;
+} */
+
+@media (min-width: 769px) {
+    .pickup-wrapper {
+        flex-wrap: nowrap;
+    }
+    .header-1 .header-main .header-right .icon-items {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .pickup-wrapper {
+        flex-wrap: wrap;
+    }
+}
+
+.car-type-holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    margin: 15px 0px;
+}
+
+.car-type-holder .car-type {
+    padding: 2px 13px;
+    /* padding: 5px 15px; */
+    border-radius: 5px;
+    /*8px or 5px*/
+    font-weight: 600;
+    color: #fff;
+    background-color: #ff3726;
+    background-color: var(--theme2)
+}
+
+.text-black-menu {
+    color: #454545;
+}
+
+
+/*  */
+
+:root {
+    --primary-color-form: rgb(11, 78, 179);
+}
+
+
+/* Global Stylings */
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    color: #454545;
+}
+
+.form-input:focus {
+    color: #454545;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+/* Progressbar */
+
+.progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    counter-reset: step;
+    /* margin: 2rem 0 4rem; */
+}
+
+.progressbar::before,
+.progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 75%;
+    background-color: #dcdcdc;
+    z-index: -1;
+}
+
+.progress {
+    background-color: var(--primary-color-form);
+    width: 0%;
+    transition: 0.3s;
+}
+
+.progress-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+}
+
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% - 1.5rem);
+    /* top: calc(100% + 0.5rem); */
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.progress-step-active {
+    background-color: var(--primary-color-form);
+    color: #f3f3f3;
+}
+
+
+/* Form */
+
+.form {
+    /* width: clamp(320px, 70%, 430px); */
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 0.35rem;
+    /* padding: 1.5rem; */
+}
+
+.form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+}
+
+.form-step-active {
+    display: block;
+}
+
+.input-group {
+    margin: 2rem 0;
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1, 0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+
+/* Button */
+
+.form-btns-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-btn {
+    padding: 0.75rem;
+    display: block;
+    text-decoration: none;
+    background-color: var(--primary-color-form);
+    color: #f3f3f3;
+    text-align: center;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-btn:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color-form);
+}
+
+
+/* STEP FORM FINISH */
+
+.feature-content .prop {
+    font-size: 20px;
+    min-height: 50px;
+    max-height: 50px;
+}
+
+.feature-content>.prop {
+    border: none;
+}
+
+
+/* .feature-content>.prop~.prop {
+    border-top: 2px solid #666;
+} */
+
+.prop i {
+    color: #3cb319;
+    font-size: 30px;
+}
+
+.xm i {
+    color: var(--theme);
+}
+
+.feature-benefit-items .feature-content {
+    padding: 40px 45px;
+}
+
+.feature-benefit-items:hover .feature-button a {
+    border-radius: 10px;
+    padding: 10px 20px;
+    /* background-color: var(--theme2); */
+    background-color: #a82e23;
+    color: white;
+}
+
+
+/* extra prop start */

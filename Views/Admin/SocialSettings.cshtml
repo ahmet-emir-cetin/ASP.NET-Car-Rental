@@ -1,0 +1,61 @@
+@model happylifeluxury.Models.IndexViewModel
+@{
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+    ViewData["Title"] = "Car Rental";
+}
+
+<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+    <div>
+        <h3 class="fw-bold mb-3">Social Media Settings</h3>
+        <h6 class="op-7 mb-2">Car Rental</h6>
+    </div>
+    <div class="ms-md-auto py-2 py-md-0">
+        <a href="#" class="btn btn-label-info btn-round me-2">Kaydet</a>
+        <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+    </div>
+</div>
+@if (TempData["Success"]!=null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
+@if (TempData["Danger"]!=null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Danger"]</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Sosyal Medya Ayarları</h4>
+            </div>
+            <form action="/admin/settings/social-update" method="post">
+            @Html.AntiForgeryToken()
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Instagram">Instagram Adresi</label>
+                            <input type="Instagram" class="form-control" maxlength="250" asp-for="Site!.Instagram" name="Instagram" id="Instagram" placeholder="E-posta adresiniz" value="@if (Model.Site!.Instagram!=null){@Model.Site!.Instagram}" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Facebook">Facebook Adresi</label>
+                            <input type="Facebook" class="form-control" maxlength="250" asp-for="Site!.Facebook" name="Facebook" id="Facebook" placeholder="Telefon numaranız" value="@if (Model.Site!.Facebook!=null){@Model.Site!.Facebook}" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Twitter">Twitter Adresi</label>
+                            <input type="Twitter" class="form-control" maxlength="250" asp-for="Site!.Twitter" name="Twitter" id="Twitter" placeholder="Telefon numaranız" value="@if (Model.Site!.Twitter!=null){@Model.Site!.Twitter}" required />
+                        </div>
+                    </div>
+                    <input type="hidden" name="Id" asp-for="Site!.Id">
+                    <div class="col-md-6 mt-5">
+                        <button class="btn btn-primary w-100" id="update">GÜNCELLE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

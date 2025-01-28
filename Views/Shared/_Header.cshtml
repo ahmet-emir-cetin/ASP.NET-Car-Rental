@@ -1,0 +1,157 @@
+@{
+    @model happylifeluxury.Models.IndexViewModel
+    var actionName = ViewContext.RouteData.Values["Action"]!.ToString();
+}
+<!-- Header Top Section Start -->
+<div class="header-top-section">
+    <div class="container-fluid">
+        <div class="header-top-wrapper">
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:@Model.Site!.Email" class="link">@Model.Site!.Email</a>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    @Model.Site!.Address
+                </li>
+            </ul>
+            <div class="header-top-right">
+                <ul class="top-list">
+                    <li><a href="/contact">Yardım</a></li>
+    
+                    <li>/</li>
+                    <li><a href="/contact">Destek</a></li>
+                    <li>/</li>
+                    <li><a href="/contact">İletişim</a></li>
+                </ul>
+                <div class="social-icon d-flex align-items-center">
+                    <a href="@Model.Site!.Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="@Model.Site!.Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="@Model.Site!.Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header Section Start -->
+<header id="header-sticky" class="header-1">
+    <div class="container-fluid">
+        <div class="mega-menu-wrapper">
+            <div class="header-main">
+                <div class="header-left">
+                    <div class="logo">
+                        <a href="/" class="header-logo">
+                            <img src="~/uploads/images/@Model.Site.Logo" alt="logo-img" width="150">
+                        </a>
+                    </div>
+                    <div class="mean__menu-wrapper">
+                        <div class="main-menu">
+                            <nav id="mobile-menu">
+                                <ul>
+                                    @* <li class="has-dropdown active menu-thumb">
+                                        <a href="/">
+                                            Home
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a href="/">Home 01</a></li>
+                                            <li><a href="index-2.html">Home 02</a></li>
+                                            <li><a href="index-3.html">Home 03</a></li>
+                                        </ul>
+                                    </li> *@
+                                    <li>
+                                        <a class='@(actionName=="Index"?"active":" ")' href="/">Anasayfa</a>
+                                    </li>
+                                    <li>
+                                        <a class='@(actionName=="ReservationCancel"?"active":" ")' href="/">
+                                            Rezervasyon
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a class='@(actionName=="ReservationCancel"?"active":" ")' href="/reservation/cancel">Rezervasyon İptal</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a class='@(actionName=="Campaign"?"active":" ")' href="/campaign">
+                                            Kampanyalar
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a class='@(actionName=="Campaign"?"active":" ")' href="/campaign/">Araç Kiralama Kampanyaları </a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/">
+                                            Araçlar
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a href="/cars/">Tüm Kiralık Araçlar</a></li>
+                                            <li><a href="/cars/eco">Ekonomik Araçlar</a></li>
+                                            <li><a href="/cars/confor">Konfor Araçlar</a></li>
+                                            <li><a href="/cars/prestige">Prestij Araçlar</a></li>
+                                            <li><a href="/cars/vip">Vip Araçlar</a></li>
+                                            <li><a href="/cars/lux">Lüks Araçlar</a></li>
+                                            <li><a href="/cars/van">Van Araçlar</a></li>
+                                        </ul>
+                                    </li>
+                                    @* <li>
+                                        <a href="news.html">
+                                            Blog
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a href="news.html">Blog</a></li>
+                                            <li><a href="news-details.html">Blog Details</a></li>
+                                        </ul>
+                                    </li> *@
+                                    <li>
+                                        <a href="/contact">İletişim</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right d-flex justify-content-end align-items-center">
+                    <div class="icon-items">
+                        <div class="icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="content">
+                            <p>7/24 Aktif</p>
+                            <h6><a href='@(Model.Site!.Phone!=null? "tel:+90"+ Model.Site!.Phone:" ")'>+90 @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Site!.Phone))</a></h6>
+                        </div>
+                    </div>
+                    <a href="#0" class="search-trigger search-icon"><i class="fa-regular fa-magnifying-glass"></i></a>
+                    <div class="header-button">
+                        <a href="/cars" class="header-btn">
+                            Find a Car
+                        </a>
+                    </div>
+                    <div class="header__hamburger d-xl-none my-auto">
+                        <div class="sidebar__toggle">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Search Area Start -->
+<div class="search-wrap">
+    <div class="search-inner">
+        <i class="fas fa-times search-close" id="search-close"></i>
+        <div class="search-cell">
+            <form method="get">
+                <div class="search-field-holder">
+                    <input type="search" class="main-search-input" placeholder="Search...">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

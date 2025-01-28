@@ -1,0 +1,142 @@
+@model happylifeluxury.Models.IndexViewModel
+<!-- Footer Section Start -->
+<footer class="footer-section fix">
+    <div class="container">
+        <div class="footer-widgets-wrapper">
+            <div class="row justify-content-between">
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="single-footer-widget shape-map">
+                        <div class="widget-head">
+                            <h4>İletişim</h4>
+                        </div>
+                        <div class="footer-content">
+                            <p>
+                                @Model.Site!.Address
+                            </p>
+                            <ul class="contact-info">
+                                <li>
+                                    <i class="fa-regular fa-envelope"></i>
+                                    <a href="mailto:@Model.Site!.Email">@Model.Site!.Email</a>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-phone-volume"></i>
+                                    <a href="tel:90 @Model.Site!.Phone">+90 @String.Format("{0:(###) ###-####}", Convert.ToInt64(Model.Site!.Phone))</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="single-footer-widget">
+                        <div class="widget-head">
+                            <h4>İletişim</h4>
+                        </div>
+                        <ul class="list-items">
+                            <li>
+                                <a href="/cars">
+                                    Araçlarımız
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/blog">
+                                    Blog
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/contact">
+                                    İletişim
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".6s">
+                    <div class="single-footer-widget">
+                        <div class="widget-head">
+                            <h4>Galeri</h4>
+                        </div>
+                        <div class="footer-gallery">
+                            <div class="gallery-wrap">
+                                <div class="gallery-item">
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-1.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-1.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-2.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-2.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-3.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-3.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-4.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-4.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-5.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-5.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="thumb">
+                                        <a href="~/assets/img/footer/gallery-6.jpg" class="img-popup">
+                                            <img src="~/assets/img/footer/gallery-6.jpg" alt="gallery-img">
+                                            <div class="icon">
+                                                <i class="far fa-plus"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".8s">
+                    <div class="single-footer-widget">
+                        <div class="widget-head">
+                            <h4>Haberdar Ol</h4>
+                        </div>
+                        <div class="footer-content">
+                            <p>Abone olarak haberlerden ve kampanyalardan haberdar olabilirsiniz.</p>
+                            <div class="footer-input">
+                                <input type="email" id="email2" placeholder="E-posta adresiniz">
+                                <button class="newsletter-btn" type="submit">
+                                    <i class="fa-regular fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-wrapper">
+                <p class="wow fadeInUp" data-wow-delay=".4s">
+                    © Copyright 2024 by <a href="/">@Model.Site.Title</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

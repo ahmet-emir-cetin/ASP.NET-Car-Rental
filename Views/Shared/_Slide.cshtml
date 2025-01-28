@@ -1,0 +1,48 @@
+@model happylifeluxury.Models.IndexViewModel
+<!-- Hero Section Start -->
+<section class="hero-section hero-1 fix">
+    <div class="array-button">
+        <button class="image-array-left">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="image-array-right">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+    <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+            @* START SLIDE *@
+            @if (Model.Slides!.Count() > 0)
+            {
+                @foreach (var item in Model.Slides!)
+                {
+            <div class="swiper-slide">
+                <div class="hero-image bg-cover" style="background-image: url('/uploads/images/slide/@item.Image');">
+                    <div class="overlay-shape">
+                        <img src="~/assets/img/hero/overlay.png" alt="img">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12">
+                            <div class="hero-content text-center">
+                                <h4 class="text-white" data-animation="fadeInUp" data-delay="1.3s">
+                                    @item.Subtitle
+                                </h4>
+                                <h1 class="text-white" data-animation="fadeInUp" data-delay="1.3s">
+                                    @item.Title
+                                    @* Araç <span>Kirala</span>
+                                        Son kelime <span> arasında olacak
+                                    *@
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                }
+            }
+            @* END SLIDE *@
+        </div>
+    </div>
+</section>

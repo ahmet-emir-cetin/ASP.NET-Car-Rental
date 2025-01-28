@@ -1,0 +1,33 @@
+@model happylifeluxury.Models.IndexViewModel
+
+            <form method="post" action="/admin/customer/update" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="d-flex">Ad</label>
+                    <input type="text" maxlength="50" asp-for="Customer!.FirstName" name="FirstName" class="form-control" placeholder="Ad">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.FirstName"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Soyad</label>
+                    <input type="text" maxlength="50" asp-for="Customer!.LastName" name="LastName" class="form-control" placeholder="Soyad">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.LastName"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Ehliyet No</label>
+                    <input type="text" maxlength="50" asp-for="Customer!.DriverNo" name="DriverNo" class="form-control" placeholder="Ehliyer No">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.DriverNo"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Telefon</label>
+                    <input type="text" maxlength="50" asp-for="Customer!.Phone" name="Phone" class="form-control" placeholder="Telefon">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Phone"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">E-Posta</label>
+                    <input type="text" maxlength="50" asp-for="Customer!.Email" name="Email" class="form-control" placeholder="E-posta">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Customer!.Email"></span>
+                </div>
+
+                <input type="hidden" asp-for="Customer!.Id" name="Id">
+                <button type="submit" class="btn btn-dark btn-fw w-100">GÜNCELLE</button>
+            </form>

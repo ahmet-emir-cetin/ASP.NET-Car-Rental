@@ -1,0 +1,66 @@
+@model happylifeluxury.Models.IndexViewModel
+@{
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+    ViewData["Title"] = "Car Rental";
+}
+
+<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+    <div>
+        <h3 class="fw-bold mb-3">Contact Settings</h3>
+        <h6 class="op-7 mb-2">Car Rental</h6>
+    </div>
+    <div class="ms-md-auto py-2 py-md-0">
+        <a href="#" class="btn btn-label-info btn-round me-2">Kaydet</a>
+        <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+    </div>
+</div>
+@if (TempData["Success"]!=null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
+@if (TempData["Danger"]!=null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Danger"]</div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">İletişim Ayarları</h4>
+            </div>
+            <form action="/admin/settings/contact-update" method="post">
+            @Html.AntiForgeryToken()
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Email">E-Posta Adresi</label>
+                            <input type="Email" class="form-control" maxlength="100" asp-for="Site!.Email" name="Email" id="Email" placeholder="E-posta adresiniz" value="@if (Model.Site!.Email!=null){@Model.Site!.Email}" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Phone">Telefon Numarası</label>
+                            <input type="Phone" class="form-control" maxlength="50" asp-for="Site!.Phone" name="Phone" id="Phone" placeholder="Telefon numaranız" value="@if (Model.Site!.Phone!=null){@Model.Site!.Phone}" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Address">Adres Bilgileri</label>
+                            <textarea maxlength="500" rows="5" type="Address" class="form-control" asp-for="Site!.Address" name="Address" id="Address" placeholder="Adres" required>
+                            @if (Model.Site!.Address!=null)
+                            {
+                                @Model.Site!.Address
+                            }
+                            </textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" name="Id" asp-for="Site!.Id">
+                    <div class="col-md-6 mt-5">
+                        <button class="btn btn-primary w-100" id="update">GÜNCELLE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

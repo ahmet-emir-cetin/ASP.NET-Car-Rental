@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <body>
+        @{await Html.RenderPartialAsync("Admin/_Head");}
+
+        <div class="wrapper">
+        @{await Html.RenderPartialAsync("Admin/_Sidebar");}
+            <div class="main-panel">
+            @{await Html.RenderPartialAsync("Admin/_Header");}
+            <div class="container">
+                <div class="page-inner">
+                @RenderBody()
+           
+                </div>
+            </div>
+            @{await Html.RenderPartialAsync("Admin/_Footer");}
+            </div>
+        </div>
+        @{await Html.RenderPartialAsync("Admin/_Scripts");}
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    </body>
+</html>

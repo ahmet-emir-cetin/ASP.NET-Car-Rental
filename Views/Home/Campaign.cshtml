@@ -1,0 +1,57 @@
+@model happylifeluxury.Models.IndexViewModel;
+@{
+    ViewData["Title"] = "Araç Kiralama Kampanyaları";
+}
+
+        <!-- News Section Start -->
+        <section class="news-section section-padding fix">
+            <div class="container">
+                <div class="row g-4">
+                    @*CAMPAIGN START*@
+
+                @if(Model.Campaigns!.Count() > 0)
+                {
+                @foreach(var item in Model.Campaigns!)
+                {
+                    <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="news-card-items mt-0">
+                            <div class="news-image">
+                                <img src="~/uploads/images/campaigns/@item.Image" alt="@item.Title | @Model.Site!.Title">
+                                @* <div class="post-date">
+                                    <h6>
+                                        20 <br>
+                                        Mar 
+                                    </h6>
+                                </div> *@
+                            </div>
+                            <div class="news-content">
+                                @*<div class="post-client">
+                                    <img src="~/uploads/images/@Model.Site!.Logo" alt="@item.Title | @Model.Site!.Title">
+                                </div>*@
+                                <div class="news-cont">
+                                    <span>@Model.Site.Title</span>
+                                    <h3><a href="/campaign/@item.SeoUrl.Replace(' ','_')/@item.Id">@item.SeoTitle</a></h3>
+                                    <p>@(item.Subtitle.Substring(0, Math.Min(item.Subtitle.Length, 50)))</p>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <i class="fa-solid fa-eye"></i>
+                                        @item.Hit Görüntülenme
+                                    </li>
+                                    <li>
+                                       <a href="/campaign/@item.SeoUrl.Replace(' ','_')/@item.Id">
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                            Detaylı Bilgi 
+                                       </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                }
+
+                    @* CAMPAIGN END *@
+                </div>
+            </div>
+        </section>

@@ -1,0 +1,151 @@
+@model happylifeluxury.Models.IndexViewModel;
+@{
+    ViewData["Title"] = "Güvence Paketleri";
+}
+
+  <section class="feature-benefit section section-padding fix">
+            <div class="container">
+                <div class="section-title text-center">
+                    <img src="~/assets/img/sub-icon.png" alt="icon-img" class="wow fadeInUp">
+                    <span class="wow fadeInUp" data-wow-delay=".2s">car rental</span>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">
+                        Güvence Paketleri <br>
+                    </h2>
+                </div>
+                <form action="/reservation/driver" method="post">
+                <div class="row">
+                    @* prop start *@
+                    @if(Model.Insurances!.Count() > 0)
+                    {
+                    @foreach(var item in Model.Insurances!)
+                    {
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="feature-benefit-items">
+                            <div class="icon-box-shape">
+                                <img src="~/assets/img/feature-benefit/box-icon-bg1.png" alt="shape-img">
+                            </div>
+                            <div class="bg-button-shape">
+                                <img src="~/assets/img/feature-benefit/bg-button-iconbox.png" alt="shape-img">
+                            </div>
+                            <div class="feature-content">
+                                <h4>
+                                    <a href="">
+                                        @item.Title <h6 style="color: var(--text);">@(item.Price * Convert.ToInt16(Model.RentalDay))TL / @Model.RentalDay Gün için</h6>
+                                    </a>
+                                </h4>
+                                @* prop start *@
+                                @{
+                                if(item.TireglassSec == true)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3">
+                                    <span>Lastik, Cam, Far, Ayna Güvencesi</span>
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </div>
+                                }
+                                if(item.SuperMiniSec == true)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3">
+                                    <span>Süper Mini Hasar Güvencesi</span>
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </div>
+                                }
+                                if(item.MiniSec == true)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3">
+                                    <span>Mini Hasar Güvencesi</span>
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </div>
+                                }
+                                if(item.IhtiyariSec == true)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3">
+                                    <span>İhtiyari Mali Mesuliyet Güvencesi</span>
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </div>
+                                }
+                                if(item.FerdiSec == true)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3">
+                                    <span>Ferdi Kaza Güvencesi</span>
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </div>
+                                }
+                                
+                                if(item.TireglassSec == false)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3 xm">
+                                    <span>Lastik, Cam, Far, Ayna Güvencesi</span>
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </div>
+                                }
+                                if(item.SuperMiniSec == false)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3 xm">
+                                    <span>Süper Mini Hasar Güvencesi</span>
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </div>
+                                }
+                                if(item.MiniSec == false)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3 xm">
+                                    <span>Mini Hasar Güvencesi</span>
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </div>
+                                }
+                                if(item.IhtiyariSec == false)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3 xm">
+                                    <span>İhtiyari Mali Mesuliyet Güvencesi</span>
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </div>
+                                }
+                                if(item.FerdiSec == false)
+                                {
+                                <div class="prop d-flex justify-content-between align-items-center mt-3 me-3 xm">
+                                    <span>Ferdi Kaza Güvencesi</span>
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </div>
+                                }
+                                }
+
+                                @* prop end *@
+                                <div class="icon">
+                                    <img src="~/assets/img/feature-benefit/icon-1.png" alt="icon-img">
+                                </div>
+                            </div>
+
+                           @{
+                                @* Model.InsurancePrice = item.Price;
+                                Model.InsuranceTitle = item.Title;
+                                Model.InsuranceId = item.Id; *@
+                            }
+                            
+                            <div class="feature-button">
+                                <button type="submit"name="InsuranceId" value="@item.Id" onclick="setSelectedInsurance(true)"> Paketi Ekle <i class="fa-solid fa-plus"></i></button>
+                                @* <a href="/" class="link-btn">Paketi Ekle <i class="fa-solid fa-plus"></i></a> *@
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    }
+                    <input type="hidden" asp-for="Car!.Id" name="CarId" value="@Model.CarId">
+                    <input type="hidden" asp-for="RentalDay" name="RentalDay" value="@Model.RentalDay">
+                    <input type="hidden" asp-for="LocationPickup" name="LocationPickup" value="@Model.LocationPick!.Id">
+                    <input type="hidden" asp-for="LocationDropoff" name="LocationDropoff" value="@Model.LocationDrop!.Id">
+                    <input type="hidden" asp-for="DatePickup" name="DatePickup" value="@Model.DatePickup">
+                    <input type="hidden" asp-for="DateDropoff" name="DateDropoff" value="@Model.DateDropoff">
+                    <input type="hidden" asp-for="TotalPrice" name="TotalPrice" value="@Model.TotalPrice">
+                    @* <input type="hidden" asp-for="InsurancePrice" name="InsurancePrice" value="@Model.InsurancePrice">
+                    <input type="hidden" asp-for="InsuranceTitle" name="InsuranceTitle" value="@Model.InsuranceTitle"> *@
+                    @* <input type="hidden" asp-for="InsuranceId" name="InsuranceId" value="@Model.InsuranceId"> *@
+                    <input type="hidden" id="InsuranceSelect" name="InsuranceSelect" value="false">
+
+                    <div class="d-flex justify-content-center mt-5">
+                        <button type="submit" name="InsuranceId" onclick="setSelectedInsurance(false)" class="theme-btn bg-color text-center w-25 w-md-100"> Sonraki Adım <i class="fa-solid fa-arrow-right ps-1"></i></button>
+                        @* <a href="#" onclick="setSelectedInsurance(false)" class="theme-btn bg-color text-center w-25">Sonraki Adım <i class="fa-solid fa-arrow-right ps-1"></i></a> *@
+                    </div>
+                    @* prop end *@
+                </div>
+                </form>
+            </div>
+        </section>

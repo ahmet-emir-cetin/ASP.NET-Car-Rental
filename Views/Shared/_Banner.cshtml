@@ -1,0 +1,96 @@
+@{var actionName = ViewContext.RouteData.Values["Action"]!.ToString();}
+@model happylifeluxury.Models.IndexViewModel;
+<!--<< Breadcrumb Section Start >>-->
+<div class="breadcrumb-wrapper bg-cover" style="background-image: url('/assets/img/bg-header-banner.jpg');">
+    <div class="container">
+        <div class="page-heading">
+            <ul class="breadcrumb-items wow fadeInUp" data-wow-delay=".3s">
+                <li>
+                    <a href="/">
+                        Anasayfa
+                    </a>
+                </li>
+                <li>
+                    <i class="fas fa-chevron-right"></i>
+                </li>
+                <li>
+                    @(ViewData["Title"])
+                </li>
+            </ul>
+            <h1 class="wow fadeInUp" data-wow-delay=".5s">@(ViewData["Title"])</h1>
+            @if(actionName=="CarSelect" || actionName=="SecurityPackage" || actionName=="DriverDetails" || actionName=="ExtraProp")
+{
+<!-- Header Section Start -->
+                    <div class="pt-5 pb-5">
+                                <ul class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+                                    @* <li class="has-dropdown active menu-thumb">
+                                        <a href="/">
+                                            Home
+                                            <i class="fas fa-angle-down"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a href="/">Home 01</a></li>
+                                            <li><a href="index-2.html">Home 02</a></li>
+                                            <li><a href="index-3.html">Home 03</a></li>
+                                        </ul>
+                                    </li> *@
+                                    <li style="border-right: 2px #77797e solid; min-width: 300px; max-height: 84px;" class="p-0 pe-3 border-0 border-md-end-2 border-secondary">
+                                        <span style="color: #27AB00; font-weight: 600;">Alış & İade Ofisi</span>
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white">@Model.LocationPick!.LocatioName > @Model.LocationDrop!.LocatioName</span>
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white">@Model.DatePickup - @Model.DateDropoff | @Model.RentalDay</span>
+                                    </li>
+                                    @if(Model.Car!=null)
+                                    {
+                                    <li style="border-right: 2px #77797e solid; min-width: 300px; max-height: 84px;" class="p-0 pe-3 border-0 border-md-end-2">
+                                        <span style="color: #27AB00; font-weight: 600;">Aracınız</span>
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white">@Model.Car.CarName</span>
+                                        <span style="font-weight: 600;" class="float-end text-black-menu text-white">@string.Format("{0:#,0.####}TL", Convert.ToInt32(Model.Car!.CarPrice) * Convert.ToInt32(Model.RentalDay))</span>
+                                        <br>
+                                        <span class="text-black-menu text-white">ya da benzeri bir araç</span>
+                                    </li>
+                                    }else{
+                                    <li style="border-right: 2px #77797e solid; min-width: 300px; max-height: 84px;" class="p-0 pe-3 border-0 border-md-end-2">
+                                        <span style="color: var(--theme); font-weight: 600;">Aracınız</span>
+                                        @* color: var(--theme2); *@
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white"></span>
+                                        <span style="font-weight: 600;" class="float-end text-black-menu text-white"></span>
+                                        <br>
+                                        <span class="text-black-menu text-white">ya da benzeri bir araç</span>
+                                    </li>
+                                    }
+                                    @if(Model.Insurance!=null)
+                                    {
+                                    <li style="min-width: 300px; max-height: 84px;" class="p-0 pe-3 border-0">
+                                        <span style="color: #27AB00; font-weight: 600;">Güvence Paketi</span>
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white">@Model.Insurance.Title</span>
+                                        <span style="font-weight: 600;" class="float-end text-black-menu text-white">@string.Format("{0:#,0.####}TL", Convert.ToInt32(Model.Insurance.Price) * Convert.ToInt32(Model.RentalDay))</span>
+                                        <br>
+                                        <span class="text-black-menu text-white">-</span>
+                                    </li>   
+                                    }else{
+                                    <li style="min-width: 300px; max-height: 84px;" class="p-0 pe-3 border-0">
+                                        <span style="color: var(--theme); font-weight: 600;">Güvence Paketi</span>
+                                        <br>
+                                        <span style="font-weight: 600;" class="text-black-menu text-white"></span>
+                                        <span style="font-weight: 600;" class="float-end text-black-menu text-white"></span>
+                                        <br>
+                                        <span class="text-black-menu text-white">-</span>
+                                    </li>   
+                                    }
+                                </ul>
+                    </div>
+                
+}
+            @* @if(actionName=="CarSelect")
+            {
+            <h4 class="wow fadeInUp text-white">@Model.LocationPick!.LocatioName > @Model.LocationDrop!.LocatioName</h4>
+            <h4 class="wow fadeInUp text-white">@Model.DatePickup > @Model.DateDropoff</h4>
+            }  *@
+        </div>
+    </div>
+</div>

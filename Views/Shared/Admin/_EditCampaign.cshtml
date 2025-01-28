@@ -1,0 +1,46 @@
+@model happylifeluxury.Models.IndexViewModel
+
+            <form method="post" action="/admin/campaign/update" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="d-flex">Başlık</label>
+                    <input type="text" maxlength="100" asp-for="Campaign!.Title" name="Title" class="form-control" placeholder="Başlık">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.Title"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Alt Başlık</label>
+                    <input type="text" maxlength="250" asp-for="Campaign!.Subtitle" name="Subtitle" class="form-control" placeholder="Alt Başlık">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.Subtitle"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Description">Açıklama</label>
+                    <textarea  rows="5" type="Description" class="form-control" asp-for="Campaign!.Description" name="Description" id="Description" placeholder="Açıklama">
+
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Görünürlük</label>
+                    <select class="form-select form-control" asp-for="Campaign!.IsView" name="IsView">
+                        <option value="1">Görünür</option>
+                        <option value="0">Görünmez</option>
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.IsView"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">SEO Başlık</label>
+                    <input type="text" maxlength="50" asp-for="Campaign!.SeoTitle" name="SeoTitle" class="form-control" placeholder="SEO Title">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.SeoTitle"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">SEO URL</label>
+                    <input type="text" maxlength="250" asp-for="Campaign!.SeoUrl" name="SeoUrl" class="form-control" placeholder="SEO URL">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Campaign!.SeoUrl"></span>
+                </div>
+                <div class="form-group d-flex align-items-end">
+                    <img src="/uploads/images/campaigns/@Model.Campaign!.Image" width="150" alt="">
+                    <input class="form-control" asp-for="Car!.CarImage" type="file" name="file" accept="image/png, image/gif, image/jpeg">
+                </div>
+
+                <input type="hidden" asp-for="Campaign!.Id" name="Id">
+                <button type="submit" class="btn btn-dark btn-fw w-100">GÜNCELLE</button>
+            </form>

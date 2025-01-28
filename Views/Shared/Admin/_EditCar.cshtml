@@ -1,0 +1,39 @@
+@model happylifeluxury.Models.IndexViewModel
+
+            <form method="post" action="/admin/car/update" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="d-flex">Araç Adı</label>
+                    <input type="text" maxlength="50" asp-for="Car!.CarName" name="CarName" class="form-control" placeholder="Araç Adı">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarName"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Araç Modeli</label>
+                    <input type="text" maxlength="50" asp-for="Car!.CarModel" name="CarModel" class="form-control" placeholder="Araç Modeli">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarModel"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Araç Fiyatı</label>
+                    <input type="text" maxlength="50" asp-for="Car!.CarPrice" name="CarPrice" class="form-control" placeholder="Araç Fiyatı">
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarPrice"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-flex">Araç Sınıfı</label>
+                    <select class="form-select form-control" asp-for="Car!.CarType" name="CarType">
+                        <option value="EKONOMİK">Ekonomik</option>
+                        <option value="KONFOR">Konfor</option>
+                        <option value="VIP">VIP</option>
+                        <option value="PRESTİJ">Prestij</option>
+                        <option value="LÜKS">Lüks</option>
+                        <option value="VAN">Van</option>
+                    </select>
+                    <span class="text-danger" style="font-size: 0.875rem;" asp-validation-for="Car!.CarType"></span>
+                </div>
+                <div class="form-group d-flex align-items-end">
+                    <img src="/uploads/images/cars/@Model.Car!.CarImage" width="150" alt="">
+                    <input class="form-control" asp-for="Car!.CarImage" type="file" name="file" accept="image/png, image/gif, image/jpeg">
+                </div>
+
+                <input type="hidden" asp-for="Car!.Id" name="Id">
+                <button type="submit" class="btn btn-dark btn-fw w-100">GÜNCELLE</button>
+            </form>

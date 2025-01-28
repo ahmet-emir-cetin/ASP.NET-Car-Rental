@@ -1,0 +1,45 @@
+@model happylifeluxury.Models.IndexViewModel
+@{var actionName = ViewContext.RouteData.Values["Action"]!.ToString();}
+<head>
+    <!-- ========== Meta Tags ========== -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ahmet Emir Çetin">
+    <meta name="description" content="@Model.Site!.Description">
+    @if(actionName == "CampaignDetails")
+    {
+    <meta property="og:description" content="@Model.Campaign!.Subtitle">
+    <meta property="og:image" content="http://localhost:5026/uploads/images/campaigns/@Model.Campaign.Image">
+    <meta property="og:site_name" content="@Model.Site!.Title">
+    <meta property="og:title" content="@Model.Campaign.SeoTitle - @Model.Site!.Title">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:5026/campaign/@Model.Campaign.SeoUrl">
+    }
+    
+    <!-- ======== Page title ============ -->
+    @* <title>Remons - Booking Rental HTML Template</title> *@
+    <title>@(ViewData["Subtitle"] != null ? ViewData["Subtitle"]+" - " +ViewData["Title"]: ViewData["Title"]) | @Model.Site!.Title</title> @*@Model.Site!.Title*@
+    <!--<< Favcion >>-->
+    <link rel="shortcut icon" href="~/assets/img/favicon.png">
+    <!--<< Bootstrap min.css >>-->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!--<< All Min Css >>-->
+    <link rel="stylesheet" href="~/assets/css/all.min.css">
+    <!--<< Animate.css >>-->
+    <link rel="stylesheet" href="~/assets/css/animate.css">
+    <!--<< Magnific Popup.css >>-->
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.css">
+    <!--<< MeanMenu.css >>-->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <!--<< DatePicker.css >>-->
+    <link rel="stylesheet" href="~/assets/css/datepickerboot.css">
+    <!--<< Swiper Bundle.css >>-->
+    <link rel="stylesheet" href="~/assets/css/swiper-bundle.min.css">
+    <!--<< Nice Select.css >>-->
+    <link rel="stylesheet" href="~/assets/css/nice-select.css">
+    <!--<< Main.css >>-->
+    <link rel="stylesheet" href="~/assets/css/main.css">
+    <link rel="stylesheet" href="~/css/site.css">
+
+</head>
